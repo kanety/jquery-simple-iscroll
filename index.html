@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="dist/jquery-simple-iscroll.js"></script>
+</head>
+<body>
+  <h1>Basic use</h1>
+  <div id="container" style="width: 200px; height: 200px; overflow-y: scroll;">
+    <table id="table">
+      <thead>
+        <tr>
+          <th>header</th>
+          <th>header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="paging" style="display: none;">
+      <a class="prev">prev</a>
+      <a href="index.1.html">index.1.html</a>
+      <a href="index.2.html">index.2.html</a>
+      <a href="index.3.html">index.3.html</a>
+      <a href="index.2.html" class="next">next</a>
+    </div>
+  </div>
+  <div id="message"></div>
+  <script>
+  $('#container').simpleIscroll({
+    content: '#table tbody',
+    paging: '#paging',
+    next: 'a.next'
+  }).on('load:start', function(e, href) {
+    $('#message').append("load start: " + href + "<br>");
+  }).on('load:end', function(e, href) {
+    $('#message').append("load end: " + href + "<br>");
+  }).on('load:success', function(e, $content, $paging) {
+    $('#message').append("loaded content: " + $content.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+    $('#message').append("loaded pading: " + $paging.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+  });
+  </script>
+</body>
+</html>
