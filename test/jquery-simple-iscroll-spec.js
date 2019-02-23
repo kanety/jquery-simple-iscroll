@@ -25,7 +25,6 @@ describe('jquery-simple-iscroll', function() {
       next: 'a.next'
     }).on('load:start', function(e, href) {
       $message.append("load start: " + href);
-      console.log("after start: " + $message.html());
     }).on('load:end', function(e, href) {
       $message.append("load end: " + href);
     }).on('load:success', function(e, $content, $paging) {

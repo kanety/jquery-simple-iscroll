@@ -5,6 +5,7 @@ const DEFAULTS = {
   content: '',
   paging: '',
   next: '',
+  margin: 0,
   loadingText: null
 };
 
@@ -27,9 +28,9 @@ export default class SimpleIscroll {
     this.$container.on(`scroll.${NAMESPACE}`, (e) => {
       let scrollTop = this.$container.get(0).scrollTop;
       let scrollHeight = this.$container.get(0).scrollHeight;
-      let height = this.$container.height();
+      let innerHeight = Math.ceil(this.$container.innerHeight());
 
-      if (scrollTop + height >= scrollHeight) {
+      if (scrollTop + innerHeight + this.options.margin >= scrollHeight) {
         this.load();
       }
     });
