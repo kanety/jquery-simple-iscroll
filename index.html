@@ -79,6 +79,8 @@
   }).on('load:success', function(e, $content, $paging) {
     $('#message').append("loaded content: " + $content.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
     $('#message').append("loaded pading: " + $paging.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+  }).on('load:failure', function(e, href) {
+    console.log("failed to load " + href);
   });
   </script>
 </body>

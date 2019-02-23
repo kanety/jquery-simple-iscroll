@@ -50,6 +50,8 @@ export default class SimpleIscroll {
       this.start();
       $.get(this.nextHref).done((data) => {
         this.success(data);
+      }).fail((jqXHR, textStatus, errorThrown) => {
+        this.failure(jqXHR, textStatus, errorThrown);
       }).always(() => {
         this.end();
       });
@@ -80,11 +82,14 @@ export default class SimpleIscroll {
     let $content = $data.find(this.options.content);
     let $paging = $data.find(this.options.paging);
 
-    let replaced = {};
     this.$container.trigger('load:success', [$content, $paging]);
 
     this.$container.find(this.options.content).append($content.html());
     this.$container.find(this.options.paging).html($paging.html());
+  }
+
+  failure(jqXHR, textStatus, errorThrown) {
+    this.$container.trigger('load:failure', [this.nextHref, jqXHR, textStatus, errorThrown]);
   }
 
   static getDefaults() {

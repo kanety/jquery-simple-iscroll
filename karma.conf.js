@@ -17,9 +17,19 @@ module.exports = function(config) {
     files: [
       'node_modules/jquery/dist/jquery.min.js',
       'dist/*.js',
-      'index.html',
-      'test/**/*spec.js'
+      'test/**/*spec.js',
+      'index.html', {
+        pattern: 'index.*.html',
+        served: true,
+        included: false
+      },
     ],
+
+
+    proxies: {
+      "/index.2.html": "/base/index.2.html",
+      "/index.3.html": "/base/index.3.html"
+    },
 
 
     // list of files / patterns to exclude
