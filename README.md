@@ -48,8 +48,7 @@ Then run:
 $('#container').simpleIscroll({
   content: '#table tbody',
   paging: '#paging',
-  next: 'a.next',
-  loadingText: 'Loading...'
+  next: 'a.next'
 }).on('load:start', function(e, href) {
   console.log("load start: " + href);
 }).on('load:end', function(e, href) {
