@@ -65,13 +65,15 @@
       <a href="index.3.html">index.3.html</a>
       <a href="index.2.html" class="next">next</a>
     </div>
+    <div id="loading" style="display: none;">Loading...</div>
   </div>
   <div id="message"></div>
   <script>
   $('#container').simpleIscroll({
     content: '#table tbody',
     paging: '#paging',
-    next: 'a.next'
+    next: 'a.next',
+    loading: '#loading'
   }).on('load:start', function(e, href) {
     $('#message').append("load start: " + href + "<br>");
   }).on('load:end', function(e, href) {

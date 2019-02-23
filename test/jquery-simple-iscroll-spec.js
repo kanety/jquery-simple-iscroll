@@ -11,7 +11,8 @@ describe('jquery-simple-iscroll', function() {
       $container.simpleIscroll({
         content: '#table tbody',
         paging: '#paging',
-        next: 'a.next'
+        next: 'a.next',
+        loading: '#loading'
       }).on('load:end', function(e) {
         done();
       });

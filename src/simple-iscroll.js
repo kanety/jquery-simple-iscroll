@@ -6,7 +6,7 @@ const DEFAULTS = {
   paging: '',
   next: '',
   margin: 0,
-  loadingText: null
+  loading: null
 };
 
 export default class SimpleIscroll {
@@ -62,9 +62,8 @@ export default class SimpleIscroll {
     this.loading = true;
     this.$container.trigger('load:start', [this.nextHref]);
 
-    if (this.options.loadingText) {
-      let loading = $('<div class="iscroll-loading">').html(this.options.loadingText)
-      this.$container.append(loading);
+    if (this.options.loading) {
+      this.$container.find(this.options.loading).show();
     }
   }
 
@@ -72,8 +71,8 @@ export default class SimpleIscroll {
     this.loading = false;
     this.$container.trigger('load:end', [this.nextHref]);
 
-    if (this.options.loadingText) {
-      this.$container.find('.iscroll-loading').remove();
+    if (this.options.loading) {
+      this.$container.find(this.options.loading).hide();
     }
   }
 
