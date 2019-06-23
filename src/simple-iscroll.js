@@ -13,7 +13,12 @@ export default class SimpleIscroll {
   constructor(container, options = {}) {
     this.options = $.extend(true, {}, DEFAULTS, options);
 
-    this.$container = $(container);
+    if (container.get(0) === window) {
+      this.$container = $('body');
+      this.$handler = $(window);
+    } else {
+      this.$container = this.$handler = $(container);
+    }
     this.loading = false;
 
     this.init();
@@ -29,40 +34,52 @@ export default class SimpleIscroll {
   }
   
   bind() {
-    this.$container.on(`scroll.${NAMESPACE}`, (e) => {
-      let scrollTop = this.$container.get(0).scrollTop;
-      let scrollHeight = this.$container.get(0).scrollHeight;
-      let innerHeight = Math.ceil(this.$container.innerHeight());
-
-      if (scrollTop + innerHeight + this.options.margin >= scrollHeight) {
+    this.$handler.on(`scroll.${NAMESPACE}`, (e) => {
+      if (this.scrolledAtBottom()) {
         this.load();
       }
     });
   }
 
   unbind() {
-    this.$container.off(`.${NAMESPACE} load:start load:end load:success load:failure`);
+    this.$handler.off(`.${NAMESPACE} load:start load:end load:success load:failure`);
+  }
+
+  scrolledAtBottom() {
+    let scrollTop, scrollHeight, contentHeight;
+
+    if (this.$container.get(0) === document.body) {
+      scrollTop = $(window).scrollTop();
+      scrollHeight = $(document).height();
+      contentHeight = $(window).height();
+    } else {
+      scrollTop = this.$container.get(0).scrollTop;
+      scrollHeight = this.$container.get(0).scrollHeight;
+      contentHeight = Math.ceil(this.$container.innerHeight())
+    }
+
+    return scrollTop + contentHeight + this.options.margin >= scrollHeight;
   }
 
   load() {
     this.nextHref = this.$container.find(this.options.paging).find(this.options.next).attr('href');
     if (!this.nextHref) return;
 
-    if (!this.loading) {
-      this.start();
-      $.get(this.nextHref).done((data) => {
-        this.success(data);
-      }).fail((jqXHR, textStatus, errorThrown) => {
-        this.failure(jqXHR, textStatus, errorThrown);
-      }).always(() => {
-        this.end();
-      });
-    }
+    if (this.loading) return;
+
+    this.start();
+    $.get(this.nextHref).done((data) => {
+      this.success(data);
+    }).fail((jqXHR, textStatus, errorThrown) => {
+      this.failure(jqXHR, textStatus, errorThrown);
+    }).always(() => {
+      this.end();
+    });
   }
 
   start() {
     this.loading = true;
-    this.$container.trigger('load:start', [this.nextHref]);
+    this.$handler.trigger('load:start', [this.nextHref]);
 
     if (this.options.loading) {
       this.$container.find(this.options.loading).show();
@@ -71,7 +88,7 @@ export default class SimpleIscroll {
 
   end() {
     this.loading = false;
-    this.$container.trigger('load:end', [this.nextHref]);
+    this.$handler.trigger('load:end', [this.nextHref]);
 
     if (this.options.loading) {
       this.$container.find(this.options.loading).hide();
@@ -83,14 +100,14 @@ export default class SimpleIscroll {
     let $content = $data.find(this.options.content);
     let $paging = $data.find(this.options.paging);
 
-    this.$container.trigger('load:success', [$content, $paging]);
+    this.$handler.trigger('load:success', [$content, $paging]);
 
     this.$container.find(this.options.content).append($content.html());
     this.$container.find(this.options.paging).html($paging.html());
   }
 
   failure(jqXHR, textStatus, errorThrown) {
-    this.$container.trigger('load:failure', [this.nextHref, jqXHR, textStatus, errorThrown]);
+    this.$handler.trigger('load:failure', [this.nextHref, jqXHR, textStatus, errorThrown]);
   }
 
   static getDefaults() {

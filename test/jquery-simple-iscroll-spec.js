@@ -9,12 +9,14 @@ describe('jquery-simple-iscroll', () => {
 
     beforeEach((done) => {
       $container = $('#container');
-      $container.on('load:end', done);
+      $container.on('load:end', () => {
+        done();
+      });
       $container.scrollTop(999);
     });
 
     it('has infinite scroll', () => {
-      expect($container.find('td').length).toEqual(40);
+      expect($container.find('tbody tr').length).toEqual(20);
     });
   });
 
@@ -25,7 +27,9 @@ describe('jquery-simple-iscroll', () => {
     beforeEach((done) => {
       $container = $('#callbacks');
       $message = $('#message');
-      $container.on('load:end', done);
+      $container.on('load:end', () => {
+        done();
+      });
       $container.scrollTop(999);
     });
 

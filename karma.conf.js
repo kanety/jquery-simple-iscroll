@@ -18,7 +18,8 @@ module.exports = function(config) {
       'node_modules/jquery/dist/jquery.min.js',
       'src/*.js',
       'test/*spec.js',
-      'index.html', {
+      'index.html', 
+      'index_window.html', {
         pattern: 'index.*.html',
         served: true,
         included: false
@@ -42,7 +43,8 @@ module.exports = function(config) {
     preprocessors: {
       'src/*.js': ['webpack', 'sourcemap'],
       'test/*spec.js': ['webpack', 'sourcemap'],
-      'index.html': ['html2js']
+      'index.html': ['html2js'],
+      'index_window.html': ['html2js']
     },
 
     webpack: (function() {
