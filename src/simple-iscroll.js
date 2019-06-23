@@ -96,6 +96,6 @@ export default class SimpleIscroll {
   }
 
   static setDefaults(options) {
-    $.extend(true, DEFAULTS, options);
+    return $.extend(true, DEFAULTS, options);
   }
 }

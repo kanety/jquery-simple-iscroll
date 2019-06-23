@@ -7,7 +7,15 @@
 </head>
 <body>
   <h1>Basic use</h1>
-  <div id="container" style="width: 200px; height: 200.5px; overflow-y: scroll; padding: 2px;">
+  <style>
+  #container {
+    width: 200px;
+    height: 200.5px;
+    overflow-y: scroll;
+    padding: 2px;
+  }
+  </style>
+  <div id="container">
     <table id="table">
       <thead>
         <tr>
@@ -75,12 +83,12 @@
     next: 'a.next',
     loading: '#loading'
   }).on('load:start', function(e, href) {
-    $('#message').append("load start: " + href + "<br>");
+    $('#message').prepend("load start: " + href + "<br>");
   }).on('load:end', function(e, href) {
-    $('#message').append("load end: " + href + "<br>");
+    $('#message').prepend("load end: " + href + "<br>");
   }).on('load:success', function(e, $content, $paging) {
-    $('#message').append("loaded content: " + $content.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
-    $('#message').append("loaded pading: " + $paging.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+    $('#message').prepend("loaded content: " + $content.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+    $('#message').prepend("loaded pading: " + $paging.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
   }).on('load:failure', function(e, href) {
     console.log("failed to load " + href);
   });
