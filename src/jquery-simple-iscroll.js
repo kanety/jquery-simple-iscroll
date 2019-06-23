@@ -6,10 +6,8 @@ import SimpleIscroll from './simple-iscroll';
 $.fn.simpleIscroll = function(options) {
   return this.each((i, elem) => {
     let $elem = $(elem);
-    if (!$elem.data(NAMESPACE)) {
-      let si = new SimpleIscroll($elem, options);
-      $elem.data(NAMESPACE, si);
-    }
+    if ($elem.data(NAMESPACE)) $elem.data(NAMESPACE).destroy();
+    $elem.data(NAMESPACE, new SimpleIscroll($elem, options));
   });
 };
 

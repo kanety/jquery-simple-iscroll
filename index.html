@@ -8,14 +8,15 @@
 <body>
   <h1>Basic use</h1>
   <style>
-  #container {
+  .container {
     width: 200px;
     height: 200.5px;
     overflow-y: scroll;
     padding: 2px;
+    border: 1px solid #ccc;
   }
   </style>
-  <div id="container">
+  <div id="container" class="container">
     <table id="table">
       <thead>
         <tr>
@@ -75,23 +76,100 @@
     </div>
     <div id="loading" style="display: none;">Loading...</div>
   </div>
-  <div id="message"></div>
   <script>
   $('#container').simpleIscroll({
     content: '#table tbody',
     paging: '#paging',
     next: 'a.next',
     loading: '#loading'
-  }).on('load:start', function(e, href) {
-    $('#message').prepend("load start: " + href + "<br>");
-  }).on('load:end', function(e, href) {
-    $('#message').prepend("load end: " + href + "<br>");
-  }).on('load:success', function(e, $content, $paging) {
-    $('#message').prepend("loaded content: " + $content.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
-    $('#message').prepend("loaded pading: " + $paging.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
-  }).on('load:failure', function(e, href) {
-    console.log("failed to load " + href);
   });
+  </script>
+
+  <h1>Callbacks</h1>
+  <style>
+  #message {
+    height: 200px;
+    border: 1px solid #ccc;
+    overflow-y: scroll;
+  }
+  </style>
+  <div id="callbacks" class="container">
+    <table id="table">
+      <thead>
+        <tr>
+          <th>header</th>
+          <th>header</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+        <tr>
+          <td>page1</td>
+          <td>page1</td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="paging" style="display: none;">
+      <a class="prev">prev</a>
+      <a href="index.1.html">index.1.html</a>
+      <a href="index.2.html">index.2.html</a>
+      <a href="index.3.html">index.3.html</a>
+      <a href="index.2.html" class="next">next</a>
+    </div>
+  </div>
+  <div id="message"></div>
+  <script>
+  for (var i=0; i<2; i++) {
+    $('#callbacks').simpleIscroll({
+      content: '#table tbody',
+      paging: '#paging',
+      next: 'a.next'
+    }).on('load:start', function(e, href) {
+      $('#message').prepend("load start: " + href + "<br>");
+    }).on('load:end', function(e, href) {
+      $('#message').prepend("load end: " + href + "<br>");
+    }).on('load:success', function(e, $content, $paging) {
+      $('#message').prepend("loaded content: " + $content.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+      $('#message').prepend("loaded pading: " + $paging.html().replace(/</g,'&lt;').replace(/>/g,'&gt;') + "<br>");
+    }).on('load:failure', function(e, href) {
+      console.log("failed to load " + href);
+    });
+  }
   </script>
 </body>
 </html>

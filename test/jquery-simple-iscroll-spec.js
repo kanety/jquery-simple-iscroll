@@ -23,7 +23,7 @@ describe('jquery-simple-iscroll', () => {
     let $message;
 
     beforeEach((done) => {
-      $container = $('#container');
+      $container = $('#callbacks');
       $message = $('#message');
       $container.on('load:end', done);
       $container.scrollTop(999);

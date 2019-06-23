@@ -16,7 +16,7 @@ export default class SimpleIscroll {
     this.$container = $(container);
     this.loading = false;
 
-    this.bind();
+    this.init();
   }
 
   init() {
@@ -24,6 +24,10 @@ export default class SimpleIscroll {
     this.bind();
   }
 
+  destroy() {
+    this.unbind();
+  }
+  
   bind() {
     this.$container.on(`scroll.${NAMESPACE}`, (e) => {
       let scrollTop = this.$container.get(0).scrollTop;
@@ -37,14 +41,12 @@ export default class SimpleIscroll {
   }
 
   unbind() {
-    this.$container.off(`.${NAMESPACE}`);
+    this.$container.off(`.${NAMESPACE} load:start load:end load:success load:failure`);
   }
 
   load() {
     this.nextHref = this.$container.find(this.options.paging).find(this.options.next).attr('href');
-    if (!this.nextHref) {
-      return;
-    }
+    if (!this.nextHref) return;
 
     if (!this.loading) {
       this.start();
