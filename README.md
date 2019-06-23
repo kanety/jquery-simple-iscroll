@@ -49,13 +49,42 @@ $('#container').simpleIscroll({
   content: '#table tbody',
   paging: '#paging',
   next: 'a.next'
+});
+```
+
+### Options
+
+Show loading contents:
+
+```javascript
+$('#container').simpleIscroll({
+  ...
+  loading: '.loading'
+});
+```
+
+Set margin height to start loading before reaching at the bottom:
+
+```javascript
+$('#container').simpleIscroll({
+  ...
+  margin: 10
+});
+```
+
+### Callbacks
+
+```javascript
+$('#container').simpleIscroll({
+  ...
 }).on('load:start', function(e, href) {
-  console.log("load start: " + href);
+  ...
 }).on('load:end', function(e, href) {
-  console.log("load end: " + href);
+  ...
 }).on('load:success', function(e, $content, $paging) {
-  console.log($content.html());
-  console.log($paging.html());
+  ...
+}).on('load:failure', function(e, nextHref, xhr, status, error) {
+  ...
 });
 ```
 
