@@ -12,11 +12,11 @@ describe('jquery-simple-iscroll', () => {
       $container.on('load:end', () => {
         done();
       });
-      $container.scrollTop(999);
+      $container.scrollTop($container.height() + 5);
     });
 
     it('has infinite scroll', () => {
-      expect($container.find('tbody tr').length).toEqual(20);
+      expect($container.find('tbody tr').length).toBeGreaterThanOrEqual(20);
     });
   });
 
@@ -30,7 +30,7 @@ describe('jquery-simple-iscroll', () => {
       $container.on('load:end', () => {
         done();
       });
-      $container.scrollTop(999);
+      $container.scrollTop($container.height() + 5);
     });
 
     it('has start', () => {
