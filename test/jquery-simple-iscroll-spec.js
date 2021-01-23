@@ -8,15 +8,15 @@ describe('jquery-simple-iscroll', () => {
     let $container;
 
     beforeEach((done) => {
-      $container = $('#container');
+      $container = $('#basic');
       $container.on('load:end', () => {
-        done();
+        setTimeout(done, 1000);
       });
       $container.scrollTop($container.height() + 5);
     });
 
     it('has infinite scroll', () => {
-      expect($container.find('tbody tr').length).toBeGreaterThanOrEqual(20);
+      expect($container.find('tbody tr').length).toBeGreaterThanOrEqual(10);
     });
   });
 
@@ -28,7 +28,7 @@ describe('jquery-simple-iscroll', () => {
       $container = $('#callbacks');
       $message = $('#message');
       $container.on('load:end', () => {
-        done();
+        setTimeout(done, 1000);
       });
       $container.scrollTop($container.height() + 5);
     });

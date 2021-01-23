@@ -9,12 +9,14 @@ describe('jquery-simple-iscroll', () => {
 
     beforeEach((done) => {
       $container = $(window);
-      $container.on('load:end', done);
+      $container.on('load:end', () => {
+        setTimeout(done, 1000);
+      });
       $container.scrollTop(999);
     });
 
     it('has infinite scroll', () => {
-      expect($('body').find('tbody tr').length).toBeGreaterThanOrEqual(60);
+      expect($('body').find('tbody tr').length).toBeGreaterThanOrEqual(55);
     });
   });
 });
